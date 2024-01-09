@@ -4,29 +4,25 @@ from django.contrib.messages import get_messages
 from django.http import HttpRequest, HttpResponse
 from django.template.loader import render_to_string
 
+_hx_redirect_headers = frozenset(
+    {
+        "HX-Location",
+        "HX-Redirect",
+        "HX-Refresh",
+    }
+)
 
-class HtmxMessagesMiddleware:
-    """Adds messages to HTMX response"""
 
-    _hx_redirect_headers = frozenset(
-        {
-            "HX-Location",
-            "HX-Redirect",
-            "HX-Refresh",
-        }
-    )
+def inject_messages(view: Callable) -> Callable:
+    """Injects messages into HTMX response."""
 
-    def __init__(self, get_response: Callable[[HttpRequest], HttpResponse]):
-        self.get_response = get_response
-
-    def __call__(self, request: HttpRequest) -> HttpResponse:
-        """Middleware implementation"""
-        response = self.get_response(request)
+    def _wrapper(request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        response = view(request, *args, **kwargs)
 
         if not request.htmx:
             return response
 
-        if set(response.headers) & self._hx_redirect_headers:
+        if set(response.headers) & _hx_redirect_headers:
             return response
 
         if get_messages(request):
@@ -39,3 +35,5 @@ class HtmxMessagesMiddleware:
             )
 
         return response
+
+    return _wrapper
