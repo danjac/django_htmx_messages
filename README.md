@@ -1,6 +1,6 @@
 # django_htmx_messages
 
-Example source code for https://danjacob.net/htmx_messages/
+Example source code for https://danjacob.net/posts/htmx_messages/
 
 ## Installation
 
