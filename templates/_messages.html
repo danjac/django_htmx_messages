@@ -1,0 +1,14 @@
+<div id="messages"
+     class="messages"
+     {% if hx_oob %}hx-swap-oob="true"{% endif %}>
+    {% if messages %}
+        <ul x-data="{show: true}"
+            x-show="show"
+            x-transition
+            x-init="setTimeout(() => show = false, 2000)">
+            {% for message in messages %}
+                <li class="message message-{{ message.tags }}" role="alert">{{ message.message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
