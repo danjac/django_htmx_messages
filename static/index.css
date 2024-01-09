@@ -21,3 +21,40 @@ body {
   max-width: 100%; /* 600px /16 */
   word-break: keep-all;
 }
+
+main {
+  margin-top: 120px;
+}
+
+.messages {
+  position: fixed;
+  text-align: center;
+  max-width: fit-content;
+  top: 16pt;
+  left: 30pt;
+  z-index: 50;
+  margin: auto;
+}
+
+.message {
+  list-style-type: none;
+  padding: 6px;
+  color: #fff;
+  font-size: 14pt;
+  font-weight: bold;
+  border-radius: 0.5rem;
+  padding: 3px;
+}
+
+.message-success {
+  background-color: #00f500;
+}
+
+.btn {
+  padding: 6px;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 18pt;
+  background-color: #0000f5;
+  color: #fff;
+}
